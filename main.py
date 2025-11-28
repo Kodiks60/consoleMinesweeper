@@ -45,7 +45,6 @@ class Minesweeper:
         self.board = [[' ' for _ in range(self.width)] for _ in range(self.height)]
         self.visible = [['.' for _ in range(self.width)] for _ in range(self.height)]
         
-        # Расставляем мины
         mines_placed = 0
         while mines_placed < self.mines_count:
             x = random.randint(0, self.width - 1)
@@ -113,7 +112,6 @@ class Minesweeper:
                         chars = ['@', '#', '%', '&']
                         result.append(f"{Colors.RED}{chars[stage % len(chars)]}{Colors.END}")
                 else:
-                    # Обычное отображение ячейки
                     cell = self.visible[y][x]
                     if cell == 'F':
                         result.append(f"{Colors.RED}F{Colors.END}")
@@ -309,28 +307,28 @@ class Minesweeper:
             self.print_board(show_mines=True)
 
 def main():
-    print(f"{Colors.BOLD}{Colors.CYAN} НАСТРОЙКА ИГРЫ САПЕР{Colors.END}")
+    print(f"{Colors.BOLD}{Colors.CYAN} SETTINGS{Colors.END}")
     print()
     
     try:
-        width = int(input(f"{Colors.YELLOW}Ширина поля (по умолчанию 10): {Colors.END}") or "10")
-        height = int(input(f"{Colors.YELLOW}Высота поля (по умолчанию 10): {Colors.END}") or "10")
-        mines = int(input(f"{Colors.YELLOW}Количество мин (по умолчанию 15): {Colors.END}") or "15")
+        width = int(input(f"{Colors.YELLOW}Weight (by default 10): {Colors.END}") or "10")
+        height = int(input(f"{Colors.YELLOW}Height (by default 10): {Colors.END}") or "10")
+        mines = int(input(f"{Colors.YELLOW}Value of mines (by default 15): {Colors.END}") or "15")
         
         if width <= 0 or height <= 0 or mines <= 0:
-            print(f"{Colors.RED}Размеры и количество мин должны быть положительными числами!{Colors.END}")
+            print(f"{Colors.RED}Don't cheat on my game!{Colors.END}")
             return
         
         max_mines = width * height - 1
         if mines > max_mines:
-            print(f"{Colors.YELLOW}Слишком много мин! Установлено {max_mines} мин.{Colors.END}")
+            print(f"{Colors.YELLOW}a lot of mines! Placed {max_mines} mines.{Colors.END}")
             mines = max_mines
         
         game = Minesweeper(width, height, mines)
         game.play()
         
     except ValueError:
-        print(f"{Colors.RED}Некорректный ввод! Запуск с настройками по умолчанию.{Colors.END}")
+        print(f"{Colors.RED}Error! Setup by default.{Colors.END}")
         game = Minesweeper()
         game.play()
 
